@@ -1,0 +1,9 @@
+pandas
+numpy
+pyyaml
+python-dotenv
+ccxt
+requests
+ta
+scikit-learn
+xgboost

@@ -1,0 +1,23 @@
+vantage:
+  api_key_env: VANTAGE_API_KEY
+  api_secret_env: VANTAGE_API_SECRET
+  base_url: "https://api.vantage.com"
+
+instruments:
+  crypto:
+    - "BTC/USDT"
+    - "ETH/USDT"
+  fx:
+    - "EUR/USD"
+    - "XAU/USD"
+
+timeframe: "1h"
+
+risk:
+  risk_per_trade_pct: 1.0
+  max_daily_loss_pct: 3.0
+  max_drawdown_pct: 20.0
+
+backtest:
+  commission_pct: 0.05
+  slippage_pct: 0.05
