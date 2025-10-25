@@ -1,15 +1,32 @@
 import sys
 import pandas as pd
-from src.data_fetcher import fetch_ohlcv
+import numpy as np
 
 print("Running debug_backtest.py")
 print("Python:", sys.executable)
 
-# Load data
-df = fetch_ohlcv()
+# Generate synthetic OHLCV data
+np.random.seed(42)
+length = 300
+dates = pd.date_range(end=pd.Timestamp.utcnow(), periods=length, freq='H')
+prices = 1000 + np.cumsum(np.random.normal(0, 1, size=length))
+openp = prices
+closep = prices + np.random.normal(0, 0.5, size=length)
+highp = np.maximum(openp, closep) + np.abs(np.random.normal(0, 0.5, size=length))
+lowp = np.minimum(openp, closep) - np.abs(np.random.normal(0, 0.5, size=length))
+vol = np.random.randint(1, 100, size=length)
+
+df = pd.DataFrame({
+    'open': openp,
+    'high': highp,
+    'low': lowp,
+    'close': closep,
+    'volume': vol
+}, index=dates)
+
 print("DATA: rows =", len(df))
 if len(df) == 0:
-    print("No data returned from fetch_ohlcv() - check CSV path or fetcher logic.")
+    print("No data generated.")
     sys.exit(0)
 
 print("DATA head:")
